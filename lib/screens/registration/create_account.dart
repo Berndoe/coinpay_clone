@@ -1,3 +1,4 @@
+import 'package:coinpay/widgets/reusable_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../commons.dart';
@@ -63,21 +64,11 @@ class CreateAccount extends StatelessWidget {
             SizedBox(
               height: MediaQuery.of(context).size.height * 0.03,
             ),
-            ElevatedButton(
-              style: ButtonStyle(
-                  side: WidgetStateProperty.all<BorderSide>(
-                      const BorderSide(color: kAppDefaultColor)),
-                  padding: getButtonPadding(context),
-                  backgroundColor:
-                      WidgetStateProperty.all<Color>(kAppDefaultColor)),
-              child: const Text(
-                'Sign up',
-                style: TextStyle(color: Colors.white, fontSize: 16),
-              ),
-              onPressed: () {
-                Navigator.pushNamed(context, '/registration');
-              },
-            ),
+            DefaultButton(
+                text: 'Sign up',
+                onPressed: () {
+                  Navigator.pushNamed(context, '/registration');
+                }),
             const SizedBox(
               height: 20,
             ),

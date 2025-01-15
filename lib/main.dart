@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(useMaterial3: true)
           .copyWith(textTheme: GoogleFonts.poppinsTextTheme()),
-      initialRoute: '/registration',
+      initialRoute: '/number_auth',
       routes: {
         '/home': (context) => const HomePage(),
         '/onboarding': (context) => Onboarding(),

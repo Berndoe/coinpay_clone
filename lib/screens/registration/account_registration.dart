@@ -1,26 +1,45 @@
 import 'package:coinpay/utils/constants.dart';
+import 'package:coinpay/widgets/reusable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:icons_plus/icons_plus.dart';
 
 import '../../commons.dart';
 
-class Registration extends StatelessWidget {
+class Registration extends StatefulWidget {
   const Registration({super.key});
-  static final TextEditingController _numberController =
-      TextEditingController();
-  static final TextEditingController _passwordController =
-      TextEditingController();
+
+  @override
+  State<Registration> createState() => _RegistrationState();
+}
+
+class _RegistrationState extends State<Registration> {
+  final TextEditingController _numberController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  bool _isButtonActive = false;
+
+  @override
+  void initState() {
+    _numberController.addListener(_updateButtonState);
+    _passwordController.addListener(_updateButtonState);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _numberController.dispose();
+    _passwordController.dispose();
+    super.dispose();
+  }
+
+  void _updateButtonState() {
+    setState(() {
+      _isButtonActive = _numberController.text.length == 10 &&
+          _passwordController.text.length > 6;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
-    bool fieldstate() {
-      if (_numberController.text.length == 10 &&
-          _passwordController.text.length > 6) {
-        return true;
-      }
-      return false;
-    }
-
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -162,26 +181,12 @@ class Registration extends StatelessWidget {
           ),
         ),
       ),
-      floatingActionButton: Expanded(
-        child: Align(
-          alignment: Alignment.bottomCenter,
-          child: ElevatedButton(
-            style: ButtonStyle(
-                padding: getButtonPadding(context),
-                backgroundColor: WidgetStateProperty.all<Color>(
-                    fieldstate() ? kAppDefaultColor : Colors.grey)),
-            onPressed: () {
-              showVerificationDialog(context, _numberController);
-            },
-            child: Text(
-              'Sign up',
-              style: TextStyle(
-                  color: fieldstate() ? Colors.white : Colors.black45,
-                  fontSize: 15),
-            ),
-          ),
-        ),
-      ),
+      floatingActionButton: DefaultButton(
+          isActive: _isButtonActive,
+          onPressed: () {
+            showVerificationDialog(context, _numberController);
+          },
+          text: 'Sign up'),
       floatingActionButtonLocation:
           FloatingActionButtonLocation.miniCenterFloat,
     );

@@ -1,6 +1,6 @@
 import 'package:coinpay/widgets/reusable_button.dart';
 import 'package:flutter/material.dart';
-import 'package:icons_plus/icons_plus.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import '../../commons.dart';
 import '../../utils/constants.dart';
@@ -13,27 +13,21 @@ class NumberAuthentication extends StatefulWidget {
 }
 
 class _NumberAuthenticationState extends State<NumberAuthentication> {
-  final TextEditingController _otpController = TextEditingController();
-  final bool _isButtonActive = false;
+  late bool _isButtonActive = false;
+  late bool _isFull = true;
 
-  @override
-  void initState() {
-    _otpController.addListener(_updateButtonState);
-    super.initState();
-  }
-
-  @override
-  void dispose() {
-    _otpController.dispose();
-    super.dispose();
-  }
-
-  void _updateButtonState() {
-    setState(() {});
+  TextStyle? createStyle(Color color) {
+    ThemeData theme = Theme.of(context);
+    return theme.textTheme.headlineMedium?.copyWith(color: color);
   }
 
   @override
   Widget build(BuildContext context) {
+    final otpTextStyles = List.generate(
+      6,
+      (_) => createStyle(kAppDefaultColor),
+    );
+
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
@@ -68,77 +62,64 @@ class _NumberAuthenticationState extends State<NumberAuthentication> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Row(
-                    children: [
-                      SizedBox(
-                        width: 10,
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  ),
+                  OtpTextField(
+                    numberOfFields: 6,
+                    enabledBorderColor:
+                        _isFull ? Colors.grey : kAppDefaultColor,
+                    cursorColor: kAppDefaultColor,
+                    showFieldAsBox: false,
+                    borderWidth: 2.0,
+                    textStyle: const TextStyle(fontSize: 8),
+                    styles: otpTextStyles,
+
+                    onCodeChanged: (String code) {
+                      _isFull = false;
+                    },
+                    //runs when every text field is filled
+                    onSubmit: (String verificationCode) {
+                      setState(() {
+                        _isButtonActive = true;
+                      });
+                    },
+                  ),
+                  SizedBox(
+                    height: MediaQuery.of(context).size.height * 0.03,
+                  )
+                ],
+              ),
+              Center(
+                child: RichText(
+                  textAlign: TextAlign.center,
+                  text: const TextSpan(
+                    style: TextStyle(
+                        color: Colors.black45,
+                        fontWeight: FontWeight.w500,
+                        height: 1.5,
+                        fontSize: 16),
+                    text: 'Didn\'t get a code? ',
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: 'Resend',
+                        style: TextStyle(
+                          color: kAppDefaultColor,
+                        ),
                       ),
                     ],
                   ),
-                  const SizedBox(
-                    height: 15,
-                  ),
-                  const Text(
-                    'Password',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  SizedBox(
-                    width: MediaQuery.of(context).size.width,
-                    child: TextFormField(
-                      controller: _otpController,
-                      obscureText: true,
-                      decoration: InputDecoration(
-                        contentPadding: const EdgeInsets.symmetric(
-                          // Ensures the field size remains constant
-                          horizontal: 16,
-                        ),
-                        prefixIcon: const Icon(LineAwesome.lock_solid),
-                        hintText: '••••••••',
-                        hintStyle: TextStyle(
-                            color: Colors.grey[400],
-                            letterSpacing: 2,
-                            fontSize: 40,
-                            fontWeight: FontWeight.w500),
-                        prefixIconColor: Colors.grey,
-                        suffixIcon: const Icon(Bootstrap.eye),
-                        suffixIconColor: Colors.grey,
-                        border: kTextFieldBorder,
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-              RichText(
-                textAlign: TextAlign.center,
-                text: const TextSpan(
-                  style: TextStyle(
-                      color: Colors.black45,
-                      fontWeight: FontWeight.w500,
-                      height: 1.5,
-                      fontSize: 16),
-                  text: 'Didn\'t get a code? ',
-                  children: <TextSpan>[
-                    TextSpan(
-                      text: 'Resend',
-                      style: TextStyle(
-                        color: kAppDefaultColor,
-                      ),
-                    ),
-                  ],
                 ),
-              ),
-              SizedBox(
-                height: MediaQuery.of(context).size.height * 0.2,
               ),
             ],
           ),
         ),
       ),
       floatingActionButton: DefaultButton(
-        text: 'Verify your number',
+        padding: WidgetStateProperty.all<EdgeInsets>(EdgeInsets.symmetric(
+            vertical: MediaQuery.of(context).size.height * 0.02,
+            horizontal: MediaQuery.of(context).size.width * 0.3)),
+        text: 'Verify your Number',
         isActive: _isButtonActive,
         onPressed: () {
           Navigator.pushNamed(context, '/email');

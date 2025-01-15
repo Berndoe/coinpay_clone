@@ -1,4 +1,5 @@
 import 'package:coinpay/screens/home%20page/home_page.dart';
+import 'package:coinpay/screens/login/login_screen.dart';
 import 'package:coinpay/screens/onboarding/onboarding.dart';
 import 'package:coinpay/screens/registration/create_account.dart';
 import 'package:coinpay/screens/registration/number_authentication.dart';
@@ -21,13 +22,14 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: ThemeData(useMaterial3: true)
           .copyWith(textTheme: GoogleFonts.poppinsTextTheme()),
-      initialRoute: '/number_auth',
+      initialRoute: '/login',
       routes: {
         '/home': (context) => const HomePage(),
         '/onboarding': (context) => Onboarding(),
         '/create_account': (context) => CreateAccount(),
         '/registration': (context) => Registration(),
-        '/number_auth': (context) => NumberAuthentication()
+        '/number_auth': (context) => NumberAuthentication(),
+        '/login': (context) => LoginScreen()
       },
     );
   }

@@ -65,6 +65,7 @@ class CreateAccount extends StatelessWidget {
               height: MediaQuery.of(context).size.height * 0.03,
             ),
             DefaultButton(
+                isActive: true,
                 text: 'Sign up',
                 onPressed: () {
                   Navigator.pushNamed(context, '/registration');
@@ -87,7 +88,7 @@ class CreateAccount extends StatelessWidget {
                     fontWeight: FontWeight.bold),
               ),
               onPressed: () {
-                Navigator.pushReplacementNamed(context, '/login');
+                Navigator.pushNamed(context, '/login');
               },
             ),
             SizedBox(

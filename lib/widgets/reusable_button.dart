@@ -7,18 +7,20 @@ class DefaultButton extends StatelessWidget {
   final String text;
   final VoidCallback onPressed;
   final bool isActive;
+  final WidgetStateProperty<EdgeInsets>? padding;
 
   const DefaultButton(
       {super.key,
       required this.text,
       required this.onPressed,
-      this.isActive = false});
+      this.isActive = false,
+      this.padding});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
         style: ButtonStyle(
-            padding: getButtonPadding(context),
+            padding: padding ?? getButtonPadding(context),
             backgroundColor: WidgetStateProperty.all<Color>(
                 isActive ? kAppDefaultColor : Colors.grey)),
         onPressed: onPressed,

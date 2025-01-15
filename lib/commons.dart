@@ -29,3 +29,8 @@ PreferredSize progressBar(double progressValue) {
     ),
   );
 }
+
+// TextStyle? createStyle(BuildContext context, Color color) {
+//   ThemeData theme = Theme.of(context);
+//   return theme.textTheme.headlineMedium?.copyWith(color: color);
+// }

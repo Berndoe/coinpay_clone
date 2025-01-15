@@ -119,7 +119,7 @@ class _OnboardingState extends State<Onboarding> {
       bottomNavigationBar: Padding(
         padding: EdgeInsets.only(
             top: MediaQuery.of(context).size.width * 0.06,
-            bottom: MediaQuery.of(context).size.width * 0.05),
+            bottom: MediaQuery.of(context).size.height * 0.05),
         child: Divider(
           thickness: 2.0,
           color: Colors.deepOrange.shade300,

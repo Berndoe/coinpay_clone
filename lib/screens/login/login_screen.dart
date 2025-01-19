@@ -3,6 +3,7 @@ import 'package:coinpay/widgets/reusable_button.dart';
 import 'package:flutter/material.dart';
 
 import '../../widgets/authentication_fields.dart';
+import '../../widgets/back_button.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -42,12 +43,7 @@ class _LoginScreenState extends State<LoginScreen> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: backIcon(context),
       ),
       body: SafeArea(
         child: Padding(

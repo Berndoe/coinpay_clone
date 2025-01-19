@@ -1,3 +1,4 @@
+import 'package:coinpay/widgets/back_button.dart';
 import 'package:coinpay/widgets/reusable_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
@@ -31,12 +32,7 @@ class _NumberAuthenticationState extends State<NumberAuthentication> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: backIcon(context),
         bottom: progressBar(0.1),
       ),
       body: SafeArea(
@@ -122,7 +118,7 @@ class _NumberAuthenticationState extends State<NumberAuthentication> {
         text: 'Verify your Number',
         isActive: _isButtonActive,
         onPressed: () {
-          Navigator.pushNamed(context, '/email');
+          Navigator.pushNamed(context, '/residence');
         },
       ),
       floatingActionButtonLocation:

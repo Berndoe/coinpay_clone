@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 
 import '../../commons.dart';
 import '../../widgets/authentication_fields.dart';
+import '../../widgets/back_button.dart';
 
 class Registration extends StatefulWidget {
   const Registration({super.key});
@@ -43,12 +44,7 @@ class _RegistrationState extends State<Registration> {
     return Scaffold(
       resizeToAvoidBottomInset: true,
       appBar: AppBar(
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: backIcon(context),
         bottom: progressBar(0.08),
       ),
       body: SafeArea(

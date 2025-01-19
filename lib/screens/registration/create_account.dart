@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../commons.dart';
 import '../../utils/constants.dart';
+import '../../widgets/back_button.dart';
 
 class CreateAccount extends StatelessWidget {
   const CreateAccount({super.key});
@@ -13,12 +14,7 @@ class CreateAccount extends StatelessWidget {
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            Navigator.pop(context);
-          },
-        ),
+        leading: backIcon(context),
         bottom: progressBar(0.08),
       ),
       body: SafeArea(
